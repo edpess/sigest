@@ -1,19 +1,23 @@
 
 
+<%@page import="java.util.List"%>
+<%@page import="sistema.Sistema"%>
+<%@page import="sistema.PessoaFisica"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Abrir chamado SIGEST</title>
-            <style>
+          
+        <style>
     input[type=text], select {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
     display: inline-block;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 30px;
     box-sizing: border-box;
 }
 
@@ -24,16 +28,14 @@
     padding: 14px 20px;
     margin: 8px 0;
     border: none;
-    border-radius: 4px;
+    border-radius: 30px;
     cursor: pointer;
 }
     .container {
     
-        width: 100vw;
-        height: 100vh;
-        background: calc;
+        background: cadetblue;
         display: flex;
-        flex-direction: row;
+        flex-direction: row-reverse;
         justify-content: center;
         align-items: center
 }
@@ -43,44 +45,57 @@
 }
 
     div {
-    border-radius: 5px;
+    border-radius: 30px;
     background-color: #f2f2f2;
-    padding: 20px;
+    padding: 10px;
 }    
+    legend{
+    
+        border-radius: 30px;
+        background-color: #f2f2f2;
+        padding: 10px;
+}
     </style>
     </head>
     <body>
         <div class="container">
+             <fieldset>
+            <legend>Abertura de chamado</legend>
         <form action="formChamadoCtr.jsp" method="get">  <!porque get?>
            
-        <div>Descrição do problema:</div>
-        
-            <textarea name="p.descricao"></textarea></br></br>
-            Cliente:</br> <%--  Este trecho vai trazer a lista de todos os 
+            <div>Descrição do problema:<input type="text" name="p.descricao"></div><br>
+                     
+           <div>Cliente: <%--  Este trecho vai trazer a lista de todos os 
 clientes, fazer busca no BD e trazer pro select     
             --%>
-            
-            <select name="p.cliente"> 
-                <option value="Cliente1" selected>Cliente 1</option>
-                <option value="Cliente2" >Cliente 2</option>
-                <option value="Cliente3" >Cliente 3</option>
-                <option value="Cliente4" >Cliente 4</option>
-                <option value="Cliente5" >Cliente 5</option>
-            </select>    
-            </br></br>
-            <div>Equipamento:</div></br>
+         <%
+         
+                List <PessoaFisica> listpessoa = Sistema.instancia().getListPessoaFisica();
+                for (int i=0; i < listpessoa.size(); i++){
+                   PessoaFisica P = listpessoa.get(i);
+                
+        
+         %>
+                <select name="p.cliente"> 
+                <option value="Cliente1" selected><%=P.getNome() %></option>
+            </select></div>
+            <br>
+            <div>Equipamento:<br>
             <input type="radio" name="p.equipamento" value="Desktop" checked> Desktop<br>
             <input type="radio" name="p.equipamento" value="Notebook" checked> Notebook<br>
             <input type="radio" name="p.equipamento" value="Servidor" checked> Servidor<br>
             <input type="radio" name="p.equipamento" value="Impressora" checked> Impressora<br>
-            Outro: <input type="text" name="p.equipamento"> </br></br>
-            <div>Observação:</div></br>
-        
-            <textarea type="text" name="p.observacao"></textarea></br></br>
+            Outro: <input type="text" name="p.equipamento"></div><br>
+            <div>Observação:       
+            <input type="text" name="p.observacao"></div> <br>
        
-            <div><input type ="submit" value="enviar"></div>
-        <div> <a href="index.html">inicio</a> </div>
-        </form>
+            <div><input type ="submit" value="enviar">
+        
+            </form>
+                <form action="index.html" method="get">
+        <input type ="submit" value="Inicio"></div>
+            </form>
+             </fieldset>
         </div>
     </body>
 </html>
