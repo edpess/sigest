@@ -7,6 +7,8 @@
 
 
 <%@page import="sistema.Processo"%>
+<%@page import="sistema.SisAtendimento"%>
+<%@page import="sistema.Atendimento"%>
 <%@page import="java.util.List"%>
 <%@page import="sistema.Sistema"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -68,17 +70,20 @@ legend{
              <fieldset>
             <legend>Chamados</legend>
          <form action="formAtendimento.jsp" method="get"> 
-        <%
-                List <Processo> listprocesso = Sistema.instancia().getListProcesso();
-                for (int i=0; i < listprocesso.size(); i++){
-                   Processo P = listprocesso.get(i);
-                
-         %>
+     <% 
+	
+		List<Atendimento> listAtendimento = SisAtendimento.instancia().getListAtendimento();
+		for (int i = 0; i < listAtendimento.size();i++)
+			{
+				Atendimento a = listAtendimento.get(i);
+		
+	
+	%>
          <legend>Chamado <br>
-      <textarea name = "cliente"><%=P.getCliente()%></textarea><br>
-        <textarea name = "descricao"><%=P.getDescricao()%></textarea><br>
-        <textarea name = "equipamento"><%=P.getEquipamento()%></textarea><br>
-        <textarea name = "observacao"><%=P.getObservacao()%></textarea><br></legend>
+      <textarea name = "cliente"><%=a.getCliente()%></textarea><br>
+        <textarea name = "descricao"><%=a.getDescricao()%></textarea><br>
+        <textarea name = "equipamento"><%=a.getEquipamento()%></textarea><br>
+        <textarea name = "observacao"><%=a.getObservacao()%></textarea><br></legend>
         <%--  <h2> Tempo inicio </h2> 
        <%=P.getTempoInicio()%>--%>
         <%}%>
